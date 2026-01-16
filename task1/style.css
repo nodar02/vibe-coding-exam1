@@ -5,6 +5,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: #0b0f17;
   color: #e9eef7;
+  overflow-x: hidden;
 }
 
 /* Layout */
@@ -13,6 +14,8 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .row {
@@ -32,6 +35,8 @@ body {
   background: rgba(11, 15, 23, 0.9);
   backdrop-filter: blur(10px);
   z-index: 9;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .nav a {
@@ -48,6 +53,7 @@ body {
 .logo {
   font-weight: 700;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 /* Buttons */
@@ -58,6 +64,7 @@ body {
   background: #1a2233;
   color: white;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .btn.primary {
@@ -68,21 +75,25 @@ body {
 /* Hero Section */
 .hero {
   padding: 60px 16px 40px 16px;
+  box-sizing: border-box;
 }
 
 .hero .left {
   flex: 1;
+  min-width: 0;
 }
 
 .hero .right {
   flex: 1;
   text-align: right;
+  min-width: 0;
 }
 
 .hero h1 {
   font-size: 52px;
   line-height: 1.05;
   margin: 0 0 10px 0;
+  word-wrap: break-word;
 }
 
 .hero p {
@@ -103,6 +114,7 @@ body {
   color: #d9c7ff;
   font-size: 12px;
   margin-bottom: 14px;
+  white-space: nowrap;
 }
 
 .pill {
@@ -110,6 +122,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
 }
 
 .card {
@@ -117,6 +130,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 18px;
   border-radius: 14px;
+  box-sizing: border-box;
 }
 
 /* Cards Grid */
@@ -125,10 +139,12 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 0 16px 30px 16px;
+  box-sizing: border-box;
 }
 
 .cards .card h3 {
   margin: 0 0 8px 0;
+  word-wrap: break-word;
 }
 
 .cards .card p {
@@ -143,6 +159,7 @@ body {
   display: flex;
   gap: 16px;
   padding: 0 16px 40px 16px;
+  box-sizing: border-box;
 }
 
 .split .img {
@@ -153,20 +170,24 @@ body {
     radial-gradient(circle at 70% 50%, rgba(124, 58, 237, 0.35), transparent 50%),
     rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 0;
 }
 
 .split .content {
   flex: 1;
+  min-width: 0;
 }
 
 .split h2 {
   margin: 0 0 10px 0;
   font-size: 32px;
+  word-wrap: break-word;
 }
 
 .split ul {
   padding-left: 18px;
   color: #b8c4d9;
+  margin: 0;
 }
 
 .split li {
@@ -176,6 +197,7 @@ body {
 /* Testimonials */
 .testimonials {
   padding: 0 16px 40px 16px;
+  box-sizing: border-box;
 }
 
 .testimonials .grid {
@@ -188,6 +210,7 @@ body {
   font-size: 14px;
   line-height: 1.6;
   color: #c8d3e8;
+  word-wrap: break-word;
 }
 
 .person {
@@ -207,11 +230,14 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
 .cta h3 {
   margin: 0;
   font-size: 22px;
+  word-wrap: break-word;
 }
 
 .cta p {
@@ -225,6 +251,7 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: #9fb0ce;
   font-size: 13px;
+  box-sizing: border-box;
 }
 
 /* Utilities */
@@ -236,44 +263,180 @@ body {
   font-size: 12px;
 }
 
-/* Responsive */
+/* Responsive - Tablet (920px and below) */
 @media (max-width: 920px) {
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .testimonials .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hero h1 {
-    font-size: 44px;
-  }
-}
-
-@media (max-width: 620px) {
-  .row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .split {
-    flex-direction: column;
+  .hero .left,
+  .hero .right {
+    flex: 1 1 100%;
   }
 
   .hero .right {
     text-align: left;
   }
 
+  .row {
+    flex-direction: column;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .split {
+    flex-direction: column;
+  }
+
+  .cta {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+  }
+
+  .split h2 {
+    font-size: 28px;
+  }
+}
+
+/* Responsive - Mobile (620px and below) */
+@media (max-width: 620px) {
+  body {
+    font-size: 14px;
+  }
+
+  .nav {
+    padding: 12px 16px;
+  }
+
+  .nav a {
+    font-size: 12px;
+    margin: 0 6px;
+  }
+
+  .hero {
+    padding: 40px 16px 30px 16px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
   .cards {
     grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 16px 20px 16px;
   }
 
   .testimonials .grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .split {
+    gap: 12px;
+    padding: 0 16px 30px 16px;
+  }
+
+  .split .img {
+    min-height: 200px;
+  }
+
+  .split h2 {
+    font-size: 24px;
+  }
+
+  .cta {
+    margin: 0 16px 40px 16px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta h3 {
+    font-size: 18px;
+  }
+
+  .cta p {
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .badge {
+    font-size: 11px;
+  }
+
+  .pill {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .testimonials {
+    padding: 0 16px 30px 16px;
+  }
+
+  #pricing {
+    padding: 0 16px 20px 16px !important;
+  }
+
+  #pricing > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  #faq {
+    padding: 0 16px 30px 16px !important;
+  }
+
+  .footer {
+    font-size: 12px;
+  }
+}
+
+/* Responsive - Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero .badge {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .cta {
+    margin: 0 12px 30px 12px;
+    padding: 16px;
   }
 
   .nav {
-    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
