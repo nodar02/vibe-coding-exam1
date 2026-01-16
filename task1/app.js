@@ -26,13 +26,13 @@ function scrollToTop() {
 // Demo signup handler
 function fakeSignup() {
   const buttons = document.querySelectorAll(".btn.primary");
-  
+
   // Set processing state
   buttons.forEach(btn => {
     btn.textContent = "Processing...";
     btn.disabled = true;
   });
-  
+
   // Reset after delay
   setTimeout(() => {
     buttons.forEach(btn => {
@@ -56,7 +56,7 @@ function randomizeStats() {
     conversion: (Math.random() * 8 + 4).toFixed(1),
     revenue: (Math.random() * 15000).toFixed(0)
   };
-  
+
   const elements = {
     visitors: document.getElementById("visitors"),
     signups: document.getElementById("signups"),
@@ -64,7 +64,7 @@ function randomizeStats() {
     rev: document.getElementById("rev"),
     timeNow: document.getElementById("timeNow")
   };
-  
+
   if (elements.visitors) elements.visitors.textContent = formatNumber(stats.visitors);
   if (elements.signups) elements.signups.textContent = formatNumber(stats.signups);
   if (elements.conv) elements.conv.textContent = `${stats.conversion}%`;
@@ -88,7 +88,7 @@ setInterval(() => {
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY || 0;
   const line = document.getElementById("line");
-  
+
   if (line) {
     line.style.filter = `hue-rotate(${scrollY % 360}deg)`;
   }

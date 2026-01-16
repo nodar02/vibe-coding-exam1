@@ -440,3 +440,54 @@ body {
     margin-bottom: 10px;
   }
 }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #7c3aed;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus styles for interactive elements */
+button:focus,
+a:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+/* Details styling */
+details {
+  cursor: pointer;
+}
+summary {
+  font-weight: 700;
+  padding: 8px 0;
+  user-select: none;
+  outline: none;
+}
+summary:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+summary:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+details {
+  outline: none;
+}
+details:focus {
+  outline: none;
+}
+details > p {
+  margin-top: 6px;
+  color: #9fb0ce;
+}
