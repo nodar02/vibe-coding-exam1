@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broken AI-Generated Website - Debug Exercise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .warning h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .warning ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .warning li {
+            margin: 5px 0;
+        }
+
+        /* Navigation with Dropdown */
+        nav {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #34495e;
+        }
+
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 0.8em;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            margin-top: 5px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: #333;
+            padding: 12px 20px;
+            display: block;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9fa;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+        }
+
+        .content {
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐛 Broken AI-Generated Website</h1>
+        
+        <div class="warning">
+            <h2>⚠️ Known Issues:</h2>
+            <ul>
+                <li>Dropdown menu doesn't close when clicking outside</li>
+                <li>Multiple event listeners get added on page interactions</li>
+                <li>Modal can't be closed with Escape key</li>
+                <li>Global variables pollute namespace</li>
+                <li>Code breaks after multiple clicks</li>
+                <li>No keyboard navigation support</li>
+            </ul>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" id="servicesDropdown">Services</a>
+                    <div class="dropdown-menu" id="servicesMenu">
+                        <a href="#" class="dropdown-item">Web Development</a>
+                        <a href="#" class="dropdown-item">Mobile Apps</a>
+                        <a href="#" class="dropdown-item">Consulting</a>
+                        <a href="#" class="dropdown-item">Support</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <div class="card">
+                <h3>Test the Modal</h3>
+                <p>Click the button below to open a modal window. Try closing it different ways!</p>
+                <button class="btn" id="openModalBtn">Open Modal</button>
+            </div>
+
+            <div class="card">
+                <h3>Your Mission</h3>
+                <p>Debug this AI-generated code and fix all the issues listed above. Use your browser's DevTools console to spot problems!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Welcome!</h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This is a modal window. In the broken version, you can't close it with the Escape key, and clicking outside might not work properly.</p>
+                <p>Your task is to fix these issues using proper event handling!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        // Cache DOM elements (no globals)
+        const elements = {
+            dropdown: document.getElementById('servicesDropdown'),
+            dropdownMenu: document.getElementById('servicesMenu'),
+            modalOverlay: document.getElementById('modalOverlay'),
+            openModalBtn: document.getElementById('openModalBtn'),
+            closeModalBtn: document.getElementById('closeModalBtn'),
+        };
+
+        // ---------- DROPDOWN LOGIC ----------
+        if (elements.dropdown && elements.dropdownMenu) {
+            const isDropdownOpen = () =>
+            elements.dropdownMenu.classList.contains('show');
+
+            const openDropdown = () => elements.dropdownMenu.classList.add('show');
+            const closeDropdown = () => elements.dropdownMenu.classList.remove('show');
+
+            const toggleDropdown = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            isDropdownOpen() ? closeDropdown() : openDropdown();
+            };
+
+            const handleOutsideClick = (e) => {
+            if (!elements.dropdown.contains(e.target)) {
+                closeDropdown();
+            }
+            };
+
+            elements.dropdown.addEventListener('click', toggleDropdown);
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        // ---------- MODAL LOGIC ----------
+        if (elements.modalOverlay) {
+            let lastFocusedElement = null;
+            const focusableSelectors =
+            'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+            const trapFocus = (e) => {
+            if (e.key !== 'Tab') return;
+            const focusableEls = elements.modalOverlay.querySelectorAll(focusableSelectors);
+            if (focusableEls.length === 0) return;
+
+            const firstEl = focusableEls[0];
+            const lastEl = focusableEls[focusableEls.length - 1];
+
+            if (e.shiftKey) {
+                // Shift + Tab
+                if (document.activeElement === firstEl) {
+                e.preventDefault();
+                lastEl.focus();
+                }
+            } else {
+                // Tab
+                if (document.activeElement === lastEl) {
+                e.preventDefault();
+                firstEl.focus();
+                }
+            }
+            };
+
+            const openModal = () => {
+            lastFocusedElement = document.activeElement;
+            elements.modalOverlay.classList.add('show');
+
+            // Focus first focusable element inside modal
+            const focusableEls = elements.modalOverlay.querySelectorAll(focusableSelectors);
+            focusableEls[0]?.focus();
+
+            document.addEventListener('keydown', trapFocus);
+            };
+
+            const closeModal = () => {
+            elements.modalOverlay.classList.remove('show');
+
+            // Restore focus to opener
+            lastFocusedElement?.focus();
+
+            document.removeEventListener('keydown', trapFocus);
+            };
+
+            elements.openModalBtn?.addEventListener('click', openModal);
+            elements.closeModalBtn?.addEventListener('click', closeModal);
+
+            // Close modal only when clicking overlay background
+            elements.modalOverlay.addEventListener('click', (e) => {
+            if (e.target === elements.modalOverlay) closeModal();
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && elements.modalOverlay.classList.contains('show')) {
+                closeModal();
+            }
+            });
+        }
+
+        // ---------- GLOBAL ESCAPE FOR DROPDOWN ----------
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            const dropdownMenu = document.getElementById('servicesMenu');
+            dropdownMenu?.classList.remove('show');
+        });
+        });
+
+        // Issue 6: No keyboard accessibility (no Escape key support)
+        // Issue 7: No focus management for modal
+        // Issue 8: Dropdown can't be navigated with keyboard
+    </script>
+</body>
+</html>
