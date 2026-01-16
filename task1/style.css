@@ -474,11 +474,11 @@ summary {
   outline: none;
 }
 summary:focus {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #151820;
   outline-offset: 2px;
 }
 summary:focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #151820;
   outline-offset: 2px;
 }
 details {
